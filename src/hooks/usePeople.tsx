@@ -5,13 +5,13 @@ import { getPeople } from '../api';
 export const usePeople = () => {
   const [people, setPeople] = useState<Person[]>([]);
   const [isPeopleLoading, setIsPeopleLoading] = useState(false);
-  const [isError, setIsError] = useState(false);
+  const [isErrorMessage, setIsErrorMessage] = useState(false);
 
   useEffect(() => {
     setIsPeopleLoading(true);
     getPeople()
       .then(setPeople)
-      .catch(() => setIsError(true))
+      .catch(() => setIsErrorMessage(true))
       .finally(() => setIsPeopleLoading(false));
   }, []);
 
@@ -28,13 +28,13 @@ export const usePeople = () => {
     };
   });
 
-  const isErrorMessage = !isPeopleLoading && isError;
-  const isNoPeopleOnServer = !isPeopleLoading && !people.length && !isError;
+  const isError = !isPeopleLoading && isErrorMessage;
   const isLoadedPeople = !isPeopleLoading && !!people.length;
+  const isNoPeopleOnServer = !isPeopleLoading && !people.length && !isError;
 
   return {
     preparedPeople,
-    isErrorMessage,
+    isError,
     isNoPeopleOnServer,
     isLoadedPeople,
     isPeopleLoading,

@@ -5,7 +5,7 @@ import { usePeople } from '../hooks/usePeople';
 export const PeoplePage = () => {
   const {
     preparedPeople,
-    isErrorMessage,
+    isError,
     isNoPeopleOnServer,
     isLoadedPeople,
     isPeopleLoading,
@@ -19,9 +19,9 @@ export const PeoplePage = () => {
         <div className="box table-container">
           {isPeopleLoading && <Loader />}
 
-          {isErrorMessage && (
+          {isError && (
             <p data-cy="peopleLoadingError" className="has-text-danger">
-              There are no people on the server
+              Something went wrong
             </p>
           )}
 
